@@ -1,7 +1,7 @@
-# solr-reindex
+# solr-reindexer
 Reindexes documents from a Solr query to a destination collection
 ## Usage
-Download the uber-jar from [releases](https://github.com/sematext/solr-reindex/releases) and run it with Java (11+). Here's an example with all the options:
+Download the uber-jar from [releases](https://github.com/sematext/solr-reindexer/releases) and run it with Java (11+). Here's an example with all the options:
 ```
 java -jar solr-reindexer.jar\
  -sourceCollection my_collection_v1\
