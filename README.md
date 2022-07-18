@@ -26,6 +26,7 @@ The rest are:
 
 ## Contributing
 Feel free to clone the repository, import it as a Gradle project, and add features. Some that might be useful:
+- support different source and target clusters
 - authentication support
 - multi-threading writes using a queue
 - using multiple parallel cursors (e.g. one per shard)
