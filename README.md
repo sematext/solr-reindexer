@@ -1,5 +1,5 @@
 # solr-reindexer
-Reindexes documents from a Solr query to a destination collection
+Reindexes documents from a Solr query to a destination collection. Quick tutorial [here](https://sematext.com/blog/solr-reindexer-quick-way-to-reindex-to-a-new-collection/).
 ## Usage
 Download the uber-jar from [releases](https://github.com/sematext/solr-reindexer/releases) and run it with Java (11+). Here's an example with all the options:
 ```
