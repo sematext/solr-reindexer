@@ -54,8 +54,12 @@ public class Runner {
                 .desc( "Interval between retries in milliseconds. Defaults to 5000" )
                 .hasArg(true)
                 .build());
-        options.addOption(Option.builder(	"zkAddress")
-                .desc( "Zookeeper addresses for SolrCloud. Defaults to 'localhost:2181'. Comma-separate multiple addresses" )
+        options.addOption(Option.builder(	"sourceZkAddress")
+                .desc( "Zookeeper addresses for source SolrCloud. Defaults to 'localhost:2181'. Comma-separate multiple addresses" )
+                .hasArg(true)
+                .build());
+        options.addOption(Option.builder(	"targetZkAddress")
+                .desc( "Zookeeper addresses for target SolrCloud. Defaults to 'localhost:2181'. Comma-separate multiple addresses" )
                 .hasArg(true)
                 .build());
         options.addOption(Option.builder(	"query")
@@ -93,7 +97,8 @@ public class Runner {
         setIntegerParam("rows", 1000);
         setIntegerParam("retries", 10);
         setIntegerParam("retryInterval", 5000);
-        setStringParam("zkAddress", "localhost:2181");
+        setStringParam("sourceZkAddress", "localhost:2181");
+        setStringParam("targetZkAddress", "localhost:2181");
         setStringParam("query", "*:*");
         setStringParam("uniqueKey", "id");
         setStringParam("sourceCollection", null);

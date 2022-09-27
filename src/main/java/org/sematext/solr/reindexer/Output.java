@@ -21,7 +21,7 @@ public class Output {
 
     public Output(Context context) {
         final List<String> zkServers = new ArrayList<>();
-        zkServers.add(context.stringParams.get("zkAddress"));
+        zkServers.add(context.stringParams.get("targetZkAddress"));
         client = new CloudSolrClient.Builder(zkServers, Optional.empty())
                 .build();
 
