@@ -24,7 +24,7 @@ public class Input {
 
     public Input(Context context) {
         final List<String> zkServers = new ArrayList<>();
-        String[] zkAddresses = context.stringParams.get("zkAddress").split(",");
+        String[] zkAddresses = context.stringParams.get("sourceZkAddress").split(",");
         for (String zkAddress: zkAddresses) {
             zkServers.add(zkAddress);
         }

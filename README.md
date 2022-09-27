@@ -7,7 +7,8 @@ java -jar solr-reindexer.jar\
  -sourceCollection my_collection_v1\
  -targetCollection my_collection_v2\ 
  -uniqueKey id\
- -zkAddress localhost:9983,localhost:2181\
+ -sourceZkAddress localhost:9983,localhost:2181\
+ -targetZkAddress zoo1:2181,zoo2:2181\
  -skipFields _version_,text\
  -retries 7\
  -retryInterval 2000\
@@ -18,7 +19,7 @@ java -jar solr-reindexer.jar\
 Only `sourceCollection` and `targetCollection` are mandatory.
 The rest are:
 - `uniqueKey`: we use a cursor to go over the data. The cursor requires to sort on the `uniqueKey` defined in the schema, which in turn defaults to `id`
-- `zkAddress`: the Zookeeper host:port for SolrCloud. If there are more, comma-separate them
+- `sourceZkAddress` and `targetZkAddress`: the Zookeeper host:port for SolrCloud (source and destination). If there are more, comma-separate them
 - `skipFields`: we reindex all the stored and docValues fields by default. But some may be skipped, like the default `_version_` (which will break the reindex because it will cause a version conflict) or copyFields that are also stored (they'll duplicate the values, because you'll redo the copyField operation). Comma-separate multiple fields
 - `retries` and `retryInterval`: if we encounter an exception, we wait for `retryInterval` millis and retry up to `retries` times
 - `query`: you may not want to reindex everything with the default `*:*`
