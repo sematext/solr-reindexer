@@ -110,7 +110,7 @@ public class Runner {
         int paramValue = defaultValue;
         String paramStringValue = cmd.getOptionValue(paramName);
         if (paramStringValue != null) {
-            paramValue = Integer.parseInt(paramName);
+            paramValue = Integer.parseInt(paramStringValue);
         }
         context.intParams.put(paramName, paramValue);
     }

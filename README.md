@@ -7,7 +7,7 @@ java -jar solr-reindexer.jar\
  -sourceCollection my_collection_v1\
  -targetCollection my_collection_v2\ 
  -uniqueKey id\
- -sourceZkAddress localhost:9983,localhost:2181\
+   localhost:9983,localhost:2181\
  -targetZkAddress zoo1:2181,zoo2:2181\
  -skipFields _version_,text\
  -retries 7\
@@ -26,8 +26,11 @@ The rest are:
 - `rows`: we reindex one page at a time. Typically, the best performance is around 1MB per batch. Default is 1000 rows per page/batch
 
 ## Contributing
-Feel free to clone the repository, import it as a Gradle project, and add features. Some that might be useful:
-- support different source and target clusters
+Feel free to clone the repository, import it as a Gradle project, and add features.
+
+To build the uber-jar, use `gradle jar`.
+
+Tentative roadmap:
 - authentication support
 - multi-threading writes using a queue
 - using multiple parallel cursors (e.g. one per shard)
