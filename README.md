@@ -7,7 +7,7 @@ java -jar solr-reindexer.jar\
  -sourceCollection my_collection_v1\
  -targetCollection my_collection_v2\ 
  -uniqueKey id\
-   localhost:9983,localhost:2181\
+ -sourceZkAddress localhost:9983,localhost:2181\
  -targetZkAddress zoo1:2181,zoo2:2181\
  -skipFields _version_,text\
  -retries 7\
