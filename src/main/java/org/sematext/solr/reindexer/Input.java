@@ -1,9 +1,11 @@
 package org.sematext.solr.reindexer;
 
 import org.apache.logging.log4j.LogManager;
+import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.CloudSolrClient;
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.params.CursorMarkParams;
@@ -15,7 +17,7 @@ import java.util.Optional;
 import org.apache.logging.log4j.Logger;
 
 public class Input {
-    CloudSolrClient client;
+    SolrClient client;
     String cursorMark = CursorMarkParams.CURSOR_MARK_START;
     SolrQuery q;
     boolean done = false;
@@ -25,17 +27,22 @@ public class Input {
     public Input(Context context) {
         final List<String> zkServers = new ArrayList<>();
         String[] zkAddresses = context.stringParams.get("sourceZkAddress").split(",");
-        for (String zkAddress: zkAddresses) {
+        for (String zkAddress : zkAddresses) {
             zkServers.add(zkAddress);
         }
         client = new CloudSolrClient.Builder(zkServers, Optional.empty())
                 .build();
+
         q = new SolrQuery(context.stringParams.get("query"));
 
         String uniqueKey = context.stringParams.get("uniqueKey");
         q.setSort(SolrQuery.SortClause.asc(uniqueKey));
 
         q.setRows(context.intParams.get("rows"));
+
+        if (context.stringParams.get("sourceShards") != null) {
+            q.setParam("shards", context.stringParams.get("sourceShards"));
+        }
         this.context = context;
     }
 

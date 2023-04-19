@@ -58,6 +58,10 @@ public class Runner {
                 .desc( "Zookeeper addresses for source SolrCloud. Defaults to 'localhost:2181'. Comma-separate multiple addresses" )
                 .hasArg(true)
                 .build());
+        options.addOption(Option.builder(	"sourceShards")
+                .desc( "Shard to query (normally, we query all). Comma-separate multiple shards" )
+                .hasArg(true)
+                .build());
         options.addOption(Option.builder(	"targetZkAddress")
                 .desc( "Zookeeper addresses for target SolrCloud. Defaults to 'localhost:2181'. Comma-separate multiple addresses" )
                 .hasArg(true)
@@ -98,6 +102,7 @@ public class Runner {
         setIntegerParam("retries", 10);
         setIntegerParam("retryInterval", 5000);
         setStringParam("sourceZkAddress", "localhost:2181");
+        setStringParam("sourceShards", null);
         setStringParam("targetZkAddress", "localhost:2181");
         setStringParam("query", "*:*");
         setStringParam("uniqueKey", "id");
