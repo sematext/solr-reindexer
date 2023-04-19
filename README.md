@@ -25,6 +25,12 @@ The rest are:
 - `query`: you may not want to reindex everything with the default `*:*`
 - `rows`: we reindex one page at a time. Typically, the best performance is around 1MB per batch. Default is 1000 rows per page/batch
 
+## Parallelizing reindex
+
+You can start multiple instances of the reindexer, one per shard, by specifying `-sourceShards shard1` for one instance, `-sourceShards shard2` for another, etc.
+
+You can also group N shards per reindexer by saying `-sourceShards shard1,shard2...` you get it, by comma-separating values.
+
 ## Contributing
 Feel free to clone the repository, import it as a Gradle project, and add features.
 
@@ -33,6 +39,5 @@ To build the uber-jar, use `gradle jar`.
 Tentative roadmap:
 - authentication support
 - multi-threading writes using a queue
-- using multiple parallel cursors (e.g. one per shard)
 - supporting non-SolrCloud
 - using Export instead of Cursor
