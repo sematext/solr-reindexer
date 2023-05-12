@@ -20,21 +20,8 @@ public class Runner {
 
         parseCmdLine(args);
 
-        Input input = new Input(context);
-        Output output = new Output(context);
-
-        SolrDocumentList page = input.getPage();
-        long totalDocs = page.getNumFound();
-        long currentPage = 1;
-        int rowsPerPage = context.intParams.get("rows");
-        long totalPages = (totalDocs + rowsPerPage - 1) / rowsPerPage;
-        while ((page != null) && !page.isEmpty()) {
-            log.info("Writing page {} of {}", currentPage, totalPages);
-            output.write(page);
-            page = input.getPage();
-            currentPage += 1;
-        }
-
+        Reindexer reindexer = new Reindexer(context);
+        reindexer.run();
         log.info("Done!");
         System.exit(0);
     }
@@ -48,6 +35,14 @@ public class Runner {
                 .build());
         options.addOption(Option.builder(	"retries")
                 .desc( "Number of retries if we fail to talk to Solr. Defaults to 10" )
+                .hasArg(true)
+                .build());
+        options.addOption(Option.builder(	"numWriteThreads")
+                .desc( "Number of write threads. Defaults to 2" )
+                .hasArg(true)
+                .build());
+        options.addOption(Option.builder(	"queueSize")
+                .desc( "Maximum size of the in-memory queue between reading and writing (number of pages). Defaults to 100" )
                 .hasArg(true)
                 .build());
         options.addOption(Option.builder(	"retryInterval")
@@ -100,6 +95,8 @@ public class Runner {
 
         setIntegerParam("rows", 1000);
         setIntegerParam("retries", 10);
+        setIntegerParam("numWriteThreads", 2);
+        setIntegerParam("queueSize", 100);
         setIntegerParam("retryInterval", 5000);
         setStringParam("sourceZkAddress", "localhost:2181");
         setStringParam("sourceShards", null);
