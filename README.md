@@ -29,6 +29,27 @@ The rest are:
 - `query`: you may not want to reindex everything with the default `*:*`
 - `rows`: we read one page of this size at a time. We also write one batch of this size at a time. Typically, the best performance is around 1MB per batch. Default is 1000 rows per page/batch
 
+## SSL
+
+In order to connect to Solr via SSL, you can pass system properties to CloudSolrClient as described [here](https://solr.apache.org/guide/solr/latest/deployment-guide/enabling-ssl.html#index-a-document-using-cloudsolrclient)
+
+Here's an example command:
+```
+java -jar solr-reindexer.jar\
+### SSL options begin\
+  -Djavax.net.ssl.keyStore=/path/to/solr-ssl.keystore.p12\
+  -Djavax.net.ssl.keyStorePassword=secret\
+  -Djavax.net.ssl.keyStoreType=pkcs12\
+  -Djavax.net.ssl.trustStore=/path/to/solr-ssl.keystore.p12\
+  -Djavax.net.ssl.trustStorePassword=secret\
+  -Djavax.net.ssl.trustStoreType=pkcs12\
+### SSL options end\
+  -sourceCollection sourceCollectionName\
+  -targetCollection targetCollectionName\
+  -sourceZkAddress localhost:9983\
+  -targetZkAddress localhost:2181
+```
+
 ## Parallelizing and other performance tips
 
 You can start multiple instances of the reindexer, one per shard, by specifying `-sourceShards shard1` for one instance, `-sourceShards shard2` for another, etc.
